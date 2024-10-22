@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="resize">resize</button>
+    <script>
+      window.onresize = function () {
+        console.log("resize");
+      };
+
+      const btn = document.getElementById("resize");
+      btn.onclick = () => {
+        // 创建一个Event对象
+        const resizeEvent = new Event("resize");
+        // dispatchEvent方法派发Event对象
+        window.dispatchEvent(resizeEvent);
+      };
+    </script>
+  </body>
+</html>

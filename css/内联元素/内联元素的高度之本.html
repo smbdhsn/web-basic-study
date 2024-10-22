@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>line-height</title>
+    <style>
+        .test1,
+        .test2 {
+            margin: 24px 0;
+            border: 1px solid #ccc;
+            background: #eee;
+        }
+        .test1 {
+            font-size: 16px;
+            line-height: 0;
+        }
+        .test2 { 
+            font-size: 0;
+            line-height: 16px;
+        }
+        .test3 {
+            height: 30px;
+            background-color: orange;
+        }
+        .span1 {
+            font-size: 24px;
+            line-height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test1">我的高度是？</div>
+    <div class="test2">我的高度是？</div>
+    <span class="span1">12345</span>
+    <div class="test3"></div>
+</body>
+</html>

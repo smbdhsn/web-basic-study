@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>height: 100% 生效方式2 绝对定位</title>
+    <style>
+        .far {
+            position: relative;
+            padding: 20px 0;
+        }
+        .son {
+            position: absolute;
+            height: 100%;
+            background-color: peru;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="far">
+        <p>123</p>
+        <p>123</p>
+        <div class="son"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+          任意一个对象的Symbol.iterator方法，等于该对象的遍历器生成函数，调用该函数会返回该对象的一个遍历器对象。
+          由于 Generator 函数就是遍历器生成函数，因此可以把 Generator 赋值给对象的Symbol.iterator属性，从而使得该对象具有 Iterator 接口。
+       */
+      const myIterator = {
+        [Symbol.iterator]: function* () {
+          yield 1;
+          yield 2;
+          yield 3;
+          return undefined;
+        },
+      };
+
+      console.log([...myIterator]); // [1,2,3]
+
+      for (let item of myIterator) {
+        console.log(item);
+      }
+
+      function* gen() {
+        // some code
+      }
+
+      var g = gen();
+
+      g[Symbol.iterator]() === g; // true
+
+      const arr = [1, 2, 3, 4, 5];
+      console.dir(arr);
+      const ite = arr[Symbol.iterator]();
+      console.log(ite.next());
+      console.log(ite.next());
+      console.log(ite.next());
+      console.log(ite.next());
+      console.log(ite.next());
+      console.log(ite.next());
+    </script>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // next方法参数
+
+      // 当执行next 遇到yield 执行后面的表达式 并停止执行 下一个next函数参数作为yield表达式的返回值
+      // 第一个next方法用来启动遍历器对象，所以不用带有参数 且会被忽略
+      function* foo() {
+        for (let i = 0; true; i++) {
+          const reset = yield i;
+          console.log("reset", reset);
+          if (reset) {
+            i -= 1;
+          }
+        }
+      }
+
+      const g = foo();
+      console.log(g.next());
+      console.log(g.next(1));
+      console.log(g.next(2));
+      console.log(g.next(3));
+      console.log(g.next(4));
+      console.log(g.next(5));
+      console.log(g.next(6));
+    </script>
+  </body>
+</html>

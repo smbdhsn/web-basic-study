@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function* foo(y) {
+        try {
+          yield y * y;
+          // 当遇到return 或者throw时 返回状态done:true
+          return y + 3;
+          //   throw new TypeError("type-error");
+          yield y + 1;
+          yield y + 2;
+        } catch (e) {
+          console.log(e);
+        }
+      }
+
+      const ge1 = foo(10);
+
+      console.log(ge1.next());
+      console.log(ge1.next());
+      console.log(ge1.next()); // 可以继续执行 但是一直返回{value: undefined, done: true}
+    </script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function* f() {
+        console.log("fffffff");
+      }
+      // 只会返回一个迭代器 f函数不会执行
+      const fn = f();
+
+      fn.next();
+    </script>
+  </body>
+</html>

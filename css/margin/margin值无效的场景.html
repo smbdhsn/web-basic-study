@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>margin失效的几种场景
+        1.display计算值inline的非替换元素 垂直margin无效 内联替换元素，垂直margin有效，且没有margin合并问题
+        2.margin合并 比如父子元素margin合并 正正取大
+        3.绝对定位元素非定位方向的margin值无效 因为影响不到兄弟节点
+            如果同时存在top bottom 以top优先 如果同时存在left(margin-top改变自身定位 margin-bottom改变兄弟节点位置)
+            如果同时存在left right 以left优先 同样的 margin-left改变自身定位 margin-right改变兄弟节点定位
+        4.定高容器的子元素margin-bottom或者宽度定死的子元素的margin-right定位失效
+    </title>
+    <style>
+        .text {
+            margin-left: 12px;
+            margin-right: 24px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        img {
+            margin-top: 20px;
+            margin-right: 20px;
+        }
+        .box {
+            position: relative;
+            width: 500px;
+            height: 300px;
+            background-color: aquamarine;
+        }
+        .content {
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            bottom: 10%;
+            width: 200px;
+            height: 100px;
+            background-color: orange;
+
+        }
+        .content2 {
+            position: absolute;
+            top: 30%;
+            left: 20%;
+            width: 200px;
+            height: 100px;
+            background-color: rebeccapurple;
+        }
+
+        .b1 {
+            width: 200px;
+            height: 200px;
+            border: 1px solid red;
+        }
+
+        .bd1 {
+            /* width: 50px; */
+            background-color: aqua;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+        .bd2 {
+            /* width: 50px; */
+            background-color: orange;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <span class="text">123</span>
+    <img src="https://tse2-mm.cn.bing.net/th/id/OIP-C.YKoZzgmubNBxQ8j-mmoTKAHaEK?pid=ImgDet&rs=1"/>
+
+    <div class="box">
+        <div class="content"></div>
+        <div class="content2"></div>
+        <div>1234</div>
+    </div>
+
+    <div class="b1">
+        <div class="bd1">bd1</div>
+        <div class="bd2">bd2</div>
+    </div>
+</body>
+</html>

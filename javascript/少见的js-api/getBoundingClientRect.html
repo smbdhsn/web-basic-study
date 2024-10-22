@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>getBoundingClientRect</title>
+    <style>
+      #container {
+        width: 300px;
+        height: 1999px;
+        border: 1px solid orange;
+      }
+      #box {
+        width: 100px;
+        height: 100px;
+        background-color: palegreen;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+    <div id="box"></div>
+    <script>
+      const box = document.getElementById("box");
+      function checkInView(dom) {
+        const { left, top, bottom, right } = dom.getBoundingClientRect();
+        return (
+          left > 0 &&
+          top > 0 &&
+          bottom <=
+            (window.innerHeight || document.documentElement.clientHeight) &&
+          right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+      }
+      window.addEventListener("scroll", () => {
+        console.log(checkInView(box));
+      });
+    </script>
+  </body>
+</html>

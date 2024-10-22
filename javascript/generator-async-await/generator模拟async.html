@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // generator mock async function
+      async function foo() {
+        const a = await 1;
+        const b = await 2;
+        return [a, b];
+      }
+
+      const thenable = {
+        then(resolve, reject) {
+          resolve(100);
+        },
+      };
+
+      function createPromise() {
+        return new Promise((resolve) => {
+          setTimeout(() => resolve(1000), 2000);
+        });
+      }
+
+      function* foo1() {
+        const a = yield 1;
+        const b = yield thenable;
+        const c = yield createPromise();
+        return [a, b, c];
+      }
+
+      function spawn(genF) {
+        return new Promise(function (resolve, reject) {
+          const gen = genF();
+          function step(nextF) {
+            let next;
+            try {
+              next = nextF();
+            } catch (e) {
+              return reject(e);
+            }
+
+            if (next.done) {
+              // resolvePromise(Promise, next.value)
+              return resolve(next.value);
+            }
+            // resolvePromise(Promise, next.value)
+            Promise.resolve(next.value).then(
+              function (val) {
+                step(function () {
+                  return gen.next(val);
+                });
+              },
+              function (e) {
+                step(function () {
+                  return gen.throw(e);
+                });
+              }
+            );
+          }
+          // 开始运行
+          step(function () {
+            return gen.next(undefined);
+          });
+        });
+      }
+
+      function fn() {
+        return spawn(foo1);
+      }
+
+      fn().then((val) => {
+        console.log(val);
+      });
+    </script>
+  </body>
+</html>

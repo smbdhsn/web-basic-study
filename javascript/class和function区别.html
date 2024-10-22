@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+            class和function有什么区别?
+            class是function的语法糖
+        */
+      class Student {
+        constructor(name) {
+          this.name = name;
+        }
+        logName() {
+          return this.name;
+        }
+      }
+
+      const student = new Student("me");
+
+      console.log(Object.keys(student));
+
+      for (let key in student) {
+        console.log(key);
+      }
+
+      function Boy(name) {
+        this.name = name;
+      }
+      Boy.prototype.logName = function () {};
+
+      const boy = new Boy("boy");
+
+      console.log(Object.keys(boy));
+
+      for (let key in boy) {
+        console.log(key);
+      }
+
+      console.log(Object.getOwnPropertyDescriptor(boy, "logName"));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,283 @@
+js
+    深拷贝和浅拷贝，深拷贝的实现方式
+
+    聊聊箭头函数
+        为什么箭头函数不能new(箭头函数没有prototype)
+
+    let var const区别
+        const a = b = 10和const a = 10, b = 10的区别
+        
+    Map和weakMap有啥不一样的
+
+    如果让你实现一个new是怎么实现
+
+    说说原型链
+        几种常见写法
+
+    说说call、apply、bind
+        基本用法 
+        bind如果第一次传入了this我再bind传入一次this，他如果执行的是哪个this -> 原先的this
+
+    JS的堆、栈，以及垃圾回收方式
+
+    正则表达式
+        我们出道题实现一个简单用户名的匹配（数字，字母）
+
+    JS判断类型的方式，挨个说原理
+        Object.prototype.toString.call()判断 Class A返回的是什么？我能改变他的返回类型么？（涉及到Object.prototype.toString.call的判断原理）
+    
+    说下EnventLoop，微任务全部是异步的么？ async是微任务么，你怎么理解的？ 微任务都是异步的么你怎么理解的
+        看输出，聊一聊执行栈和尾递归。
+        // 是否存在堆栈溢出错误 不会
+        function foo() {
+            setTimeout(foo, 0);
+        };
+
+        // 页面是否会卡住 会卡住
+        function foo() {
+            return Promise.resolve().then(foo);
+        } 
+    
+    防抖节流说说呢
+        debounce throttle 
+        如何立即执行
+        多功能
+
+    你知道requestAnimationFrame么 requestIdleCallback
+
+    说说内存泄漏有哪几种情况
+    
+    怎么去实现resize事件
+
+    依赖注入有了解过吗
+    
+    函数作用域
+
+    Class和function有什么区别
+
+    数组去重
+
+    实现一个并发数量最大为n的函数
+
+    proxy和defineProperty的区别
+    
+    flatten方法
+    
+    设计模式
+        说下发布订阅的实现，如果我要取消我的订阅怎么取消呢？
+
+    你了解过函数式编程吗
+
+    函数上下文讲一下？函数是怎么执行的（旧版本是依靠AST）
+
+    说说你常用的ES6命令,了解es7
+
+    说说Symbol你在平时使用是如何使用的(Symbol.iterator, Symbol.toStringTag, Symbol.toPrimitive)
+
+    Set转Array有哪些方式
+    
+    Promise 
+        Promise有哪些状态，状态之间互相转换 -> pending fulfilled rejected
+        Promise.then返回的是什么 -> 返回新的promise
+        说说Promise.race，Promise.all，如果 Promise.all有一个异常了，其他Promise还会继续执行么？ 会的
+        如何捕获async await的异常，如果不写await promise报错了你的try catch 能捕获到错误么
+        手写promise race all allSettled
+
+    generator 
+        基础用法
+        如何实现async
+
+    async await 
+        基本使用
+        babel实现
+
+    说说Generate和async await的区别
+
+
+css
+    说下盒模型
+    BFC是什么
+    css的定位 Position有哪些值，最新的有没有了解过
+    css3的动画了解多少
+    所有Css3的动画都能用GPU加速么
+    为什么top、offsetTop能引起回流
+    css相关：如果父元素有with，heigh，position为相对定位，子元素为绝对定位（没with，height），此时子元素的with，height为多少，如果子元素有top和left，那子元素的with，height又是多少
+    grid布局 Flex: 1 代表什么意思
+    垂直居中
+    css变量
+    两列布局
+    显卡硬件加速
+    如果让你实现一个轮播图，需要考虑哪些东西
+    父div设置为position:fix，子为absolute，父动，子会跟着动么？
+    如何只用一个元素实现十字架？
+    absolute和fixed有什么区别
+    盒子阴影你们一般怎么实现
+
+html
+    meta标签
+    h5标签
+
+react(一个周末)
+    React父子组件通信
+    说下什么情况下使用context这种通信方式
+    说下React原理你理解多少，，React调度机制的优先级是怎么样的？
+    Hook你知道多少，useMemo和useCallBack说说呢？
+    
+    说说Diff算法的过程 讲讲Diff算法（讲下这个场景下diff是怎么计算的）
+    React 父组件渲染，子组件一定会渲染么(涉及性能优化)
+    说说React.memo()
+    实现一个创建节点树
+    vue和react的区别
+    React的整个更新过程可以聊一聊么（Schedule，setState过程）
+    使用hook的写法监听浏览器视窗大小，并展示在页面上
+    React中 Class组件中的this和Hook中的this分别指向什么
+    Hook和Class组件分别对应生命周期的情况有哪些
+    useEffect原理，他用了什么数据结构
+    说一下Fiber和React事件调度机制
+    用过useCallback么，具体使用场景是什么
+    React.forwardRef知道么？
+    useEffect的return方法什么时候执行
+    class组件与函数组件的异同与好处
+    JSX、template组件还有createElement函数有啥优缺点
+    React Hooks能用在for循环中么？为什么？那条件语句呢？为什么？
+    你知道Hook为啥官方建议不要在hook使用条件语句么
+    如果我在条件语句后面使用useState会有问题么，比如这个条件语句会进行return？
+    为什么useState是数组结构的形式返回的，能不能以Object的形式返回(可以 但是数组可以按位解构赋值 对象形式返回还需要取别名)
+
+    说一说浏览器的事件机制和场景？
+    你说事件委托可以将事件放到根节点统一处理，有什么优势？
+    说说React的事件合成机制
+    React事件拦截是在捕获的时候还是冒泡的时候
+    React 中是如何处理事件机制的？
+    React17 事件委托发生了什么变化？一般用来处理什么场景？
+
+    讲一讲闭包陷阱
+    你提到的 useEvent 了解是怎么实现的了解吗
+
+计算机网络(早上)
+    http的三次握手和四次挥手
+    输入URL到页面呈现经历了什么
+    讲讲WebSocket 如何建立 建立的过程
+    常见的Http状态码（Http头的字段、http压缩你除了gzip还了解哪些？、gzip是有损压缩还是无损压缩）
+    强缓存，协商缓存说说（还问了Hash存在的意义是什么？）
+    说说Https
+    冒泡和捕获，这个浏览器的冒泡和捕获能颠倒么？（想问浏览器事件传递方式）
+    长连接和短连接有啥区别
+    HTTP1.1和HTTP2.0有啥区别
+    讲讲你知道的网络协议
+    TCP是怎么保证可靠的
+    TCP的拥塞控制
+    RPC是什么
+    HTTP 405是什么（Method Not Allowed）
+    网络层是怎么做的找到ip对应的主机
+    了解CDN么？原理是什么？
+    你知道如何防止DNS域名污染么？
+    HTTPS中的CA证书是做什么的
+    get post 区别？:https://github.com/febobo/web-interview/issues/145
+    
+浏览器
+    Web安全：XSS攻击和CSRF攻击以及其防御方式(看书)
+    说说你都了解哪些攻击方式，怎么防范
+
+    浏览器缓存：强缓存以及协商缓存
+    说说浏览器缓存，如果命中强缓存返回的状态码是多少
+    说说浏览器缓存，强缓存应该设置多久呢
+    说说进程、线程是什么，了解协程么？
+    cookie、localStorage、sessionStorage
+    你们都使用了哪些缓存怎么用的？  localstorage、sessionstorage、cookie都有用，xx数据放在xx缓存中。
+
+    静态资源能判断CDN缓存么？
+    了解浏览器哪些原理？
+    跨域问题
+    
+    说一说 浏览器 HTTP 缓存？
+    项目里你用什么保证来请求到最新资源？
+    根 index.html 下有没有缓存？如何保证加载到最新的资源？
+    讲一讲跨域吧。同源协议和同域协议是什么？不符合同域协议会触发跨域吗？
+    css 如果想实现一个移动到当前容器 50% 位置的动画，有几种实现方式？ js 里如何实现？ translate 和 left 哪种性能更好？ 为什么 left 的性能更好？
+    基于这个原理说一说浏览器的渲染流程吧
+    再详细说说你提到的 GraphicsLayer Tree
+    哪一些操作会触发重排和重绘
+    如何减少重排和重绘
+
+    js 内存管理有哪几种方式
+
+微前端框架
+    为什么不用iframe
+    乾坤的沙箱类型有哪几种？区别是什么？
+    你们采用的是 html entry 还是 js entry？html entry 是如何实现的？
+    如何在将读取到的 js 执行作用域隔离在子应用里？
+    css 隔离的方式，是如何实现的？
+    
+性能优化
+    说一下所有你知道前端优化方案(网络 打包 缓存)
+    想怎么去优化项目的打包速度
+    
+项目相关(两周准备)
+    讲一下你印象最深刻的项目以及项目中遇到的难点
+    讲项目，问项目，遇到的坑，具体这个方案怎么实现的
+    如何改善首屏优化和白屏
+    前端鉴权
+    项目的复杂度你觉得在哪
+    说说在工作层面遇到最大的难题。
+    讲讲换肤(主题色 需要接触antd)
+    平时是怎么学习的
+    nginx的负载均衡策略（看下架构师那个视频）
+    cookie插件是怎么做的（i18有关？）
+    你说说一个需求的全流程是怎么样的？你怎么知道一个需求合理与否？
+    问项目，你们devops流程是怎么样的，最有挑战项目，项目细节
+
+webpack(一周)
+    webpack实现原理
+    webpack5做了哪些方面的优化 
+    项目优化相关: 有做过性能优化吗？webpack的一些优化了解吗？
+    loader和plugin区别和实现 实现一个loader 实现一个plugin
+    讲讲webpack常见的几个hooks(最好结合一些常见插件)
+    实现一个简单的tapable
+    顺便讲讲css-loader的原理
+    HMR是怎么实现的
+    异步加载import实现 
+    代码分割实现
+    webpack-dev-server实现
+    SaaS主题色方案
+
+babel相关
+    babel的parse阶段是怎么实现的？（有限状态机）
+    babel的AST了解吗
+    babel插件的编写
+
+代码题目
+    写一道题：给两个矩形，有每个矩形点坐标以及长宽高，判断是否相交（包含也算相交）
+    带缓存的斐波那契数列
+    括号匹配
+    两个数组求交集
+    实现一个add函数，可以支持这样调用add(1)(2)(3)，且返回的函数有count这个方法，可以计算出所有参数的和
+    讲一下快排的思路
+    判断下链表中是否有环的思路
+    实现一个O(n)复杂度的求数组的第二大值
+    合并有序链表
+    手写一个发布定义类，其中还要多额外实现一个once方法（被发布一次就会删除订阅）
+    写一道函数柯里化( sum ( 1 )( 2 )( 3 )( 4 )( 5 )( 6 ) sum ( 1 , 2 )( 3 , 4 )( 5 ) 注意参数个数不确定，不是纯柯里化)
+    手撕发布订阅
+    实现一个工具函数，拿到 url 里的对应参数，要尽量考虑边界情况 得到 {a:2,b:3} （https://www.example.com?a=2&b=3）
+    
+    
+
+相关链接
+    史上最全常见前端大厂面试知识点汇总【已过字节, 腾讯teg，华为，网易】
+    https://blog.csdn.net/haofandedaima/article/details/117377989
+    面试必刷TOP101
+    https://www.nowcoder.com/exam/oj?tab=%E7%AE%97%E6%B3%95%E7%AF%87&topicId=295
+
+//  时间分配 //
+react原理一星期
+微前端框架 一星期(公司用的是基于single-spa方案开发的qiankun 扩展webpack5 模块邦联 说说区别)
+webpack 一星期
+js原理放最后 一星期
+
+早上 计算机网络与浏览器的相关知识 两道算法题
+
+中午 复盘
+
+晚上 复盘+主攻方向
+

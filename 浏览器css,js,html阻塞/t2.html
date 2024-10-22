@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+   <!-- link标签会阻塞后面标签的渲染
+   如何解释？首先肯定是dom树解析完毕 css解析完毕 只渲染一次是最优解
+   但是如果css-link链接阻塞时间过长 那就只能提前渲染了，那渲染哪部分呢？
+   chrome表现：首先渲染link之前的dom元素，为什么？因为link前的被认为是不需要下面link里css样式的部分 所以可以先渲染
+   firefox表现：如果css加载过慢 首先以默认的样式渲染全部的dom 然后css下载完之后再进行渲染
+   没有标准答案 不同浏览器厂商的解决思路 -->
+  <div class="woo-spinner-filled">hello world</div>
+  <div>hello world2</div>
+  <link rel="stylesheet" type="text/css" href="https://h5.sinaimg.cn/m/weibo-pro/css/chunk-vendors.d6cac585.css">
+  <div>hello world3</div>
+</body>
+</html> 

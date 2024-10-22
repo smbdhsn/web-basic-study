@@ -1,0 +1,34 @@
+pπ<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>原型链</title>
+  </head>
+  <body>
+    <script>
+      function Person(name, age) {
+        this.name = name;
+        this.age = age;
+      }
+
+      Person.prototype.setName = function (name) {
+        this.name = name;
+      };
+
+      // this指向window
+      Person.prototype.setAge = (age) => {
+        this.age = age;
+      };
+
+      const p = new Person("ggb", 21);
+      p.setName("ggbb");
+      p.setAge(33);
+
+      console.log(p);
+
+      Object.prototype;
+    </script>
+  </body>
+</html>

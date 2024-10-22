@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const map = new Map();
+      // set get delete clear has
+      map.set("a", "a");
+      map.set("b", "b");
+      map.set("c", "c");
+      //   const aVal = map.get("a");
+      //   console.log(aVal);
+      //   console.log(map.has("a"));
+      //   console.log(map.delete("a"));
+      //   map.clear();
+
+      // for of ,  keys , entries, forEach
+      for (let [key, val] of map) {
+        console.log(key, val);
+      }
+      for (let key of map.keys()) {
+        console.log(key, map.get(key));
+      }
+      for (let [key, val] of map.entries()) {
+        console.log(key, val);
+      }
+      map.forEach((val, key) => {
+        console.log(key, val);
+      });
+      // NaN作为map
+      map.set(NaN, "NaN1");
+      map.set(NaN, "NaN2");
+      console.log("key NaN", map.get(NaN));
+      // JSON.stringify
+      const jsonString = JSON.stringify(map);
+      console.log("jsonstringify", jsonString);
+      // 设置对象属性
+      map["x1"] = "x1";
+      map["x2"] = "x2";
+      console.log(map);
+      console.log(map.get("x1"));
+      console.log(map.get("x2"));
+      console.log(map["x1"]);
+
+      const objectKey = { id: 1 };
+      map.set(objectKey, { key: 1 });
+      console.log(map.get(objectKey));
+
+      // WeakMap   键是弱引用的。其键必须是对象，而值可以是任意的
+      // delete get set has
+      const weakMap = new WeakMap();
+      weakMap.set("a", "a");
+    </script>
+  </body>
+</html>

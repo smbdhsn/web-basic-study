@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //作用:更简短的函数并且不绑定this
+      //箭头函数表达式的语法比函数表达式更简洁，并且没有自己的this，arguments，super或new.target
+      // const arrow = () => {
+      //   console.log(this);
+      //   console.log(arguments);
+      //   console.log(new.target)
+      // };
+
+      //   arrow();
+      // 不能用作构造函数 规则上报错
+      const Person = (name, age) => {
+        this.name = name;
+        this.age = age;
+      };
+
+      // const p = new Person("123", 123);
+      // 通过call或apply或bind调用 只会传递参数 第一个参数会被忽略
+      const arrowFn = (a, b) => {
+        console.log(this, a, b);
+      };
+
+      arrowFn.call({ id: 1 }, 2, 3); // this被定义为window
+      arrowFn.apply({ id: 2 }, [1, 2]);
+      arrowFn.bind({ id: 3 })(3, 3);
+
+      // 没有prototype属性
+      console.log("arrow prototype", arrowFn.prototype);
+      // 箭头函数也可以使用闭包
+      function closeure() {
+        let count = 0;
+        return () => {
+          count++;
+          return count;
+        };
+      }
+      const increaseCount = closeure();
+      console.log(increaseCount());
+      console.log(increaseCount());
+      console.log(increaseCount());
+
+      // const student = {
+      //   name: "student",
+      //   age: 22,
+      //   print: () => {
+      //     console.log(this);
+      //   },
+      //   say() {
+      //     console.log(this);
+      //   },
+      // };
+
+      // student.print();
+      // student.say();
+
+      // new.target
+      function Student(name, age) {
+        console.log(new.target);
+        if (!new.target) console.log("必须以构造函数的形式调用");
+        this.name = name;
+        this.age = age;
+      }
+
+      const stu = new Student("lkj", 23);
+      console.log(Student("123", "123"));
+    </script>
+  </body>
+</html>

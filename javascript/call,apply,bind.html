@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function testFn(name, age) {
+        console.log(this);
+        console.log("name:", name, "age: ", age);
+      }
+
+      //   testFn.call({ key: "t1" }, "t1", 12);
+      //   testFn.apply(null, ["t2", 22]);
+      //   console.dir(testFn);
+      //   console.dir(testFn.bind({ key: "bind" }, "nameArg", 22, 173));
+      //   // bind绑定过的this 后续不会经过call apply发生变化
+      //   testFn.bind({ key: "bind" }).call({ key: "call" }, "t2", 33);
+
+      Function.prototype.mockCall = function () {
+        const context = arguments[0];
+        const args = Array.from(arguments).slice(1);
+        const fn = this;
+        context[Symbol.for("call")] = fn;
+        const result = context[Symbol.for("call")](...args);
+        delete context[Symbol.for("call")];
+        return result;
+      };
+
+      testFn.mockCall({ key: "mockCall" }, "call", 22);
+
+      Function.prototype.mockApply = function () {
+        const context = arguments[0];
+        const args = arguments[1];
+        const fn = this;
+        context[Symbol.for("apply")] = fn;
+        const result = context[Symbol.for("apply")](...args);
+        delete context[Symbol.for("apply")];
+        return result;
+      };
+
+      testFn.mockApply({ key: "mockApply" }, ["apply", 23]);
+      // 绑定上下文 绑定参数 返回另一个函数
+      Function.prototype.mockBind = function () {
+        const context = arguments[0] || window;
+        const args = Array.from(arguments).slice(1);
+        const fn = this;
+        return function () {
+          const allArgs = args.concat(Array.from(arguments));
+          context.fn = fn;
+          const result = context.fn(...allArgs);
+          return result;
+        };
+      };
+      testFn.mockBind({ key: "bind" }).call({ key: "call" }, "t2", 33);
+
+      testFn.bind({ key: "bind1" }).bind({ key: "bind2" })("bind test", 22);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>循环方式</title>
+  </head>
+  <body>
+    <script>
+      /*
+          是否允许中断 是否允许await暂停
+          for(let i = 0; i < 10; i++)循环形式支持 break中断 支持await暂停
+          for of 循环形式支持 break await
+          for in 循环形式支持 break await
+          forEach break会报错 支持await
+          map break报错 支持await
+        */
+
+      function timeout(delay) {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(delay);
+          }, delay);
+        });
+      }
+
+      const arr = [1000, 4000, 8000, 12000];
+
+      const promises = arr.map((delay) => timeout(delay));
+
+      //   for (let i = 0; i < 10; i++) {
+      //     console.log(i);
+      //     if (i === 2) break;
+      //   }
+
+      //   async function resolvePromises(promises) {
+      //     for (let i = 0; i < promises.length; i++) {
+      //       const val = await promises[i];
+      //       console.log(val);
+      //       if (val === 8000) break;
+      //     }
+      //   }
+
+      //   resolvePromises(promises);
+
+      //   (async function () {
+      //     for (let p of promises) {
+      //       const val = await p;
+      //       console.log(val);
+      //       if (val === 8000) break;
+      //     }
+      //   })();
+
+      //   const tObj = {
+      //     a: 1000,
+      //     b: 3000,
+      //     c: 6000,
+      //     d: 9000,
+      //   };
+      //   (async function () {
+      //     for (let key in tObj) {
+      //       const val = await timeout(tObj[key]);
+      //       console.log(val);
+      //       if (key === "c") break;
+      //       console.log("for break");
+      //     }
+      //   })();
+
+      //   promises.forEach(async (p) => {
+      //     const val = await p;
+      //     console.log(val);
+      //   });
+
+      const res = [];
+      promises.map(async (p) => {
+        console.log("111");
+        const val = await p;
+        res.push(val);
+        console.log(res);
+      });
+      console.log(res);
+    </script>
+  </body>
+</html>

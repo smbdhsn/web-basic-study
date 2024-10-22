@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>margin合并 块级元素的上外边距和下外边距有时会合并为单边距
+        两个要素： 1.块级元素 2.只发生在垂直方向
+        解决方案：1.父元素设置为bfc  2.父元素设置border-top 3.父元素设置padding-top 4.添加一个有内容的内联元素
+    </title>
+    <style>
+        .box1 {
+            width: 300px;
+        }
+
+        .bro1, .bro2 {
+            margin: 1em 0;
+        }
+
+        .farther {
+            height: 200px;
+            background-color: orange;
+            /* overflow: hidden; */
+            /* border-top: 1px solid transparent; */
+        }
+
+        .son {
+            height: 100px;
+            background-color: darkcyan;
+        }
+        .far3 {
+            overflow: hidden;
+        }
+        .son3 {
+            margin: 1em 0;
+        }
+    </style>
+</head>
+<body>
+    <h2>margin合并场景1 相邻兄弟元素margin合并</h2>
+    <div class="box1">
+        <p class="bro1">第一行</p>
+        <p class="bro2">第二行</p>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <h2>父级和第一个、最后一个子元素合并</h2>
+
+    <div class="farther">
+        <div class="son" style="margin-top: 80px;"></div>
+    </div>
+    <br/>
+    <div class="farther"  style="margin-top: 80px;">
+        <div class="son"></div>
+    </div>
+    <br/>
+    <div class="farther"  style="margin-top: 80px;">
+        <div class="son" style="margin-top: 80px;"></div>
+    </div>
+    <h3>空块级元素的margin合并</h3>
+    <div class="far3">
+        <div class="son3">
+        </div>
+    </div>
+    <div>footer</div>
+</body>
+</html>

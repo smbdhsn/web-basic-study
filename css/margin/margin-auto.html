@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        margin默认值0
+        margin：auto填充规则如下：
+        (1)如果一侧定值，一侧auto，则auto为剩余空间大小
+        (2)如果两侧都是auto 则平分剩余空间
+        margin：auto计算就是为了块级元素左中右对齐而设计的
+    </title>
+    <style>
+        .farther {
+            width: 300px;
+            border: 1px solid rebeccapurple;
+        }
+        .son {
+            width: 200px;
+            height: 200px;
+            margin-right: 80px;
+            margin-left: auto;
+            background-color: orange;
+        }
+
+        .son2 {
+            width: 200px;
+            height: 200px;
+            margin-left: auto;
+            background-color: orange;
+        }
+
+        .son3 {
+            width: 200px;
+            height: 200px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: orange;
+        }
+
+        .box {
+            width: 300px;
+            height: 300px;
+            background-color: orange;
+            position: relative;
+        }
+
+        .content {
+            width: 100px;
+            height: 100px;
+            margin: auto;
+            background-color: aqua;
+            position: absolute;
+            left: 0;right: 0;top: 0;bottom: 0;
+        }
+
+        .box2 {
+            width: 300px;
+            height: 200px;
+            border: 1px solid orange;
+            writing-mode: vertical-lr;
+        }
+        .box2-content {
+            width: 100px;
+            height: 100px;
+            margin: auto;
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <div class="farther">
+        <div class="son"></div>
+    </div>
+
+    <div class="farther">
+        <div class="son2"></div>
+    </div>
+
+    <div class="box">
+        <div class="content"></div>
+    </div>
+
+    <div class="box2">
+        <div class="box2-content"></div>
+    </div>
+</body>
+</html>

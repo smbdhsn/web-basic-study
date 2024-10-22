@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 和Promise.all挺像的 但是会返回所有的状态 包括rejected
+      Promise.allSettled([
+        Promise.resolve(33),
+        new Promise((resolve) => setTimeout(() => resolve(66), 3000)),
+        99,
+        Promise.reject(new Error("an error")),
+      ]).then((values) => console.log(values));
+
+      // [
+      //   { status: 'fulfilled', value: 33 },
+      //   { status: 'fulfilled', value: 66 },
+      //   { status: 'fulfilled', value: 99 },
+      //   { status: 'rejected', reason: Error: an error }
+      // ]
+    </script>
+  </body>
+</html>

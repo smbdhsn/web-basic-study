@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>由于不在当前页面 造成setInterval执行间隔不稳定</title>
+</head>
+<body>
+    <script>
+        // 时间间隔小于1000ms 确实会延缓执行
+        let i = {current: 0}
+        // const id = setInterval(() => {
+        //     i.current += 1;
+        //     console.log(i.current)
+        //     if(i.current === 20) clearInterval(id)
+        // }, 500)
+        
+        // setTimeout模拟setInterval也无法做到
+        // function mySetInterval (fn, wait) {
+        //     const tid = {current: null};
+
+        //     function executor() {
+        //         tid.current = setTimeout(executor, wait)
+        //         fn()
+        //     }
+
+        //     tid.current = setTimeout(executor, wait)
+
+        //     return tid
+        // }
+
+        // function clearMyInterval(tid) {
+        //     clearTimeout(tid.current)
+        // }
+
+        // const tid = mySetInterval(() => {
+        //     i.current += 1;
+        //     console.log(i.current)
+        //     if(i.current === 20) clearMyInterval(tid)
+        // }, 500)
+
+        document.addEventListener("visibilitychange", function() {
+            if (document.visibilityState === 'visible') {
+                console.log(document.visibilityState)
+            } else {
+                console.log(document.visibilityState)
+            }
+        });
+    </script>
+</body>
+</html>

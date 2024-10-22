@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        区别:
+        1.内联元素的width height设置无效 取决于内容元素
+        2.margin只有水平方向有效 垂直方向无效
+        3.padding看起来是生效的 垂直方向没有占据空间 水平方向占据了空间
+        4.border生效 垂直方向没有占据空间 水平方向占据了空间
+        5.内联元素一行可以容纳多个 块级元素展示一行一个 如果不设置宽度 自动适应容易宽度
+    </title>
+    <style>
+        .text {
+            background-color: rebeccapurple;
+            width: 100px;
+            height: 100px;
+            padding: 20px;
+            margin: 20px;
+            border: 4px solid orange;
+        }
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <span class="text">123</span>
+    <span class="text">456</span>
+    <div class="box"></div>
+</body>
+</html>

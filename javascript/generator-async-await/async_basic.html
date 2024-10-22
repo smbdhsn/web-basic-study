@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function tp(delay) {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(delay);
+          }, delay);
+        });
+      }
+
+      console.log("start");
+
+      const now = Date.now();
+
+      async function request() {
+        const result = await tp(3000);
+        console.log(result, "耗时: ", Date.now() - now);
+      }
+
+      request();
+
+      console.log("end");
+    </script>
+  </body>
+</html>

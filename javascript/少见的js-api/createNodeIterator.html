@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>createNodeIterator 深度优先遍历dom结构</title>
+  </head>
+  <body>
+    <div id="d1">
+      <div id="d11">
+        <span>d1-d11-span1</span>
+        <span>d1-d11-span2</span>
+      </div>
+      <div id="d12">2</div>
+    </div>
+    <div id="d2">4</div>
+    <div id="d3">5</div>
+  </body>
+
+  <script>
+    const body = document.getElementsByTagName("body")[0];
+    const item = document.createNodeIterator(body);
+    let root = item.nextNode();
+
+    while (root) {
+      console.log(root);
+      root = item.nextNode();
+    }
+  </script>
+</html>

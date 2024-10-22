@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const p1 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                reject('error 1')
+            }, 500)
+        })
+        const p2 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                reject('error 2')
+            }, 800)
+        })
+        const p3 = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                reject('error 3')
+            }, 1000)
+        })
+        Promise.any([p1,p2,p3]).then(value => {
+            console.log(value)
+        }, reason => console.log(reason)) 
+        // reason 显示为  AggregateError: All promises were rejected
+    </script>
+</body>
+</html>

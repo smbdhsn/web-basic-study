@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #c1 {
+            width: 200px;
+            height: 200px;
+            border: 2px solid #000;
+            background: linear-gradient(#fff 0%, #fff 50%, #f00 50%, #f00 100%);
+        }
+        #c2 {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, #f00 0%, #f00 50%, transparent 50%, transparent 100%);
+        }
+        .notching { 
+            width: 200px; 
+            height: 120px; 
+            background: 
+                linear-gradient(135deg, transparent 15px, deeppink 0), 
+                linear-gradient(-135deg, transparent 15px, deeppink 0), 
+                linear-gradient(-45deg, transparent 15px, deeppink 0), 
+                linear-gradient(45deg, transparent 15px, deeppink 0); 
+            background-size: 50% 50%, 50% 50%, 50% 50%, 50% 50%; 
+            background-position: top left, top right, bottom right, bottom left;
+            background-repeat: no-repeat; 
+        }
+        #c3 {
+            width: 600px;
+            height: 200px;
+            background: 
+            repeating-linear-gradient(
+            45deg, 
+            #f06a0e, 
+            #f06a0e 11px, 
+            transparent 11px, 
+            transparent 20px
+        );
+        }
+    </style>
+</head>
+<body>
+    <!-- 渐变可以是从一种颜色直接到另外一种颜色 -->
+    <div id="c1"></div>
+    <!-- 描绘一个三角形 -->
+    <div id="c2"></div>
+    <!-- 渐变是可以叠加多层的 -->
+    <div class="notching"></div>
+    <!-- 利用 repeating-linear-gradient 节省代码 -->
+    <div id="c3"></div>
+</body>
+</html>

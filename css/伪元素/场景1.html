@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      使用场景:使用一个元素无法完成完整样式的绘制，需要额外的元素完成一些细节
+      伪元素 ::before 和 ::after 更多的时候是用于完成一些细节 UI
+      的绘制，通常的场景是我们不想额外增加多余的元素去绘制一些较小的细节
+    </title>
+    <style>
+      .ex1 {
+        width: 200px;
+        height: 100px;
+        border-radius: 9px;
+        background-color: orange;
+        margin-left: 100px;
+        position: relative;
+      }
+      .ex1::before {
+        content: "";
+        display: block;
+        border-color: transparent orange transparent transparent;
+        border-width: 20px;
+        border-style: solid;
+        position: absolute;
+        left: -40px;
+        top: 30px;
+        position: absolute;
+      }
+
+      .ex2 {
+        width: 150px;
+        position: relative;
+        background: #e91e63;
+        border-radius: 10px 10px 0 0;
+        margin-left: 150px;
+      }
+      .ex2::before {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        left: -20px;
+        bottom: 0;
+        background: #000;
+        background: radial-gradient(
+          circle at 0 0,
+          transparent 20px,
+          #e91e63 21px
+        );
+      }
+      .ex2::after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        right: -20px;
+        bottom: 0;
+        background: #000;
+        background: radial-gradient(
+          circle at 100% 0,
+          transparent 20px,
+          #e91e63 21px
+        );
+      }
+    </style>
+  </head>
+  <body>
+    <div class="ex1"></div>
+    <br />
+    <div class="ex2">outside-circle</div>
+  </body>
+</html>

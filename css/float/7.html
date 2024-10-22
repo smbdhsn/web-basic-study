@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box {
+        width: 200px;
+        background-color: orange;
+      }
+
+      .float {
+        float: left;
+        width: 100px;
+        height: 100px;
+        background-color: palegreen;
+      }
+
+      .clearfix {
+        clear: both;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- float脱离了文档流 导致高度塌陷 没完全脱离 还占据着文本空间 所以实现了文字环绕效果-->
+    <div class="box">
+      <div class="float"></div>
+      <p class="clearfix">
+        <span
+          >这是一段简单的文本介绍，介绍了关于float实现文字环绕图片效果介绍了关于float实现文字环绕图片效果</span
+        >
+      </p>
+    </div>
+  </body>
+</html>

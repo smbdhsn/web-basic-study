@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 创建迭代器不会执行流程
+      // 只有next调用才会开始执行
+      // 遇到yield 停止流程执行 等待恢复
+      // 遇到return -> done:true
+      const foo = function* () {
+        console.log("start");
+        yield "a";
+        console.log(1);
+        yield "b";
+        console.log(2);
+        yield "c";
+        console.log("done");
+        // return undefined
+      };
+
+      const iterator1 = foo();
+      console.log(iterator1.next()); // {value: 'a', done: false}
+      console.log(iterator1.next()); // {value: 'b', done: false}
+      console.log(iterator1.next()); // {value: 'c', done: false}
+      console.log(iterator1.next()); // {value: undefined, done: true}
+
+      // for (let item of iterator1) {
+      //   console.log(item);
+      // }
+
+      // const iterator2 = foo();
+
+      // // for of循环不会执行迭代器状态done:true的状态
+      // for (let item of iterator2) {
+      //   console.log(item);
+      // }
+
+      function handleClick() {
+        const res = iterator1.next();
+        console.log(res);
+      }
+    </script>
+    <button onclick="handleClick()">next</button>
+  </body>
+</html>

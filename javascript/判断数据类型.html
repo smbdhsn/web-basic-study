@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // typeof
+      console.log(typeof 1); // number
+      console.log(typeof "1"); // string
+      console.log(typeof true); // boolean
+      console.log(typeof Symbol("123")); // symbol
+      console.log(typeof function () {}); // function
+      console.log(typeof [1, 2, 3]); // object
+      console.log(typeof {}); // object
+      console.log(typeof class A {}); // function
+      console.log(typeof null)
+
+      // Object.prototype.toString.call 为什么要用call？判断this的内部属性[[class]]
+      console.log(Object.prototype.toString.call(1)); // [object Number]
+      console.log(Object.prototype.toString.call("1")); // [object String]
+      console.log(Object.prototype.toString.call(true)); // [object Boolean]
+      console.log(Object.prototype.toString.call(Symbol("123"))); // [object Symbol]
+      console.log(Object.prototype.toString.call(() => {})); // [object Function]
+      console.log(Object.prototype.toString.call({})); // [object Object]
+      console.log(Object.prototype.toString.call(class A {})); // [object Function]
+      console.log(Object.prototype.toString.call([1, 2, 3, 4])); // [object Array]
+      console.log(Object.prototype.toString.call(null)); // [object Null]
+      console.log(Object.prototype.toString.call(undefined)); // [object Undefined]
+
+      function B(name) {
+        this.name = name;
+      }
+
+      B[Symbol.toStringTag] = "class B";
+      B.prototype.toStringTag = "class B";
+
+      console.dir(B);
+      console.dir(Object.prototype.toString.call(B)); // [object Function]
+
+      const myDate = new Date();
+      myDate[Symbol.toStringTag] = "myDate";
+      console.log(Object.prototype.toString.call(myDate)); // [object myDate]
+
+      class ValidatorClass {
+        get [Symbol.toStringTag]() {
+          return "validator";
+        }
+      }
+
+      console.log(Object.prototype.toString.call(new ValidatorClass())); // [object validator]
+
+      const testObj = {};
+      Object.defineProperty(testObj, Symbol.toStringTag, {
+        value: "CustomObject",
+      });
+      console.log(Object.prototype.toString.call(testObj)); // [object CustomObject]
+
+      function testSymbolTag() {}
+      Object.defineProperty(testSymbolTag.prototype, Symbol.toStringTag, {
+        get() {
+          return "testSymbolTag";
+        },
+      });
+
+      console.log(Object.prototype.toString.call(new testSymbolTag())); // [object testSymbolTag]
+      console.log(Object.prototype.toString.call(testSymbolTag)); // [object Function]
+      testSymbolTag[Symbol.toStringTag] = "function testSymbolTag";
+      console.log(Object.prototype.toString.call(testSymbolTag)); // [object function testSymbolTag]
+
+      // instanceof 检测原型
+      function Person(name, age) {
+        this.name = name;
+        this.age = age;
+      }
+
+      const p = new Person("mebius", 22);
+
+      console.log("p instanceof Person", p instanceof Person);
+
+      function myInstanceof(obj, constructor) {
+        let proto = obj.__proto__;
+        while (proto !== null) {
+          if (proto === constructor.prototype) {
+            return true;
+          }
+          proto = proto.__proto__;
+        }
+        return false;
+      }
+
+      console.log("myInstanceof", myInstanceof(p, Person)); // true
+      console.log("myInstanceof", myInstanceof(p, Object)); // true
+
+      // constructor === obj.constructor
+      console.log("constructor === obj.constructor", p.constructor === Person); // true
+    </script>
+  </body>
+</html>

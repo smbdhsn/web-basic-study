@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        width: 999px;
+        height: 1999px;
+        border: 1px solid red;
+      }
+      img {
+        width: 130px;
+        height: 130px;
+      }
+    </style>
+  </head>
+  <body>
+    <div></div>
+    <img
+      data-src="https://img.win3000.com/m00/d1/12/5773e82e25ebdaba5b85546f4d7d2ffc.jpg"
+    />
+    <img
+      data-src="https://www.google.com/url?sa=i&url=https%3A%2F%2F699pic.com%2Ftupian%2Ffengjing.html&psig=AOvVaw01OAtrxvM0Z1w4yoqRdQIT&ust=1687418464859000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCNjqlfDp0_8CFQAAAAAdAAAAABAI"
+    />
+  </body>
+  <script>
+    // 图片懒加载
+    function observerCallback(changes) {
+      for (let change of changes) {
+        if (change.isIntersecting) {
+          const element = change.target;
+          const src = element.getAttribute("data-src");
+          element.src = src;
+          element.removeAttribute("data-src");
+          observer.unobserve(element);
+        }
+      }
+    }
+    function querySelectAll(element) {
+      return Array.from(document.getElementsByTagName(element));
+    }
+    const observer = new IntersectionObserver(observerCallback);
+    const imgs = querySelectAll("img");
+    for (let img of imgs) {
+      observer.observe(img);
+    }
+
+    // 无限滚动 就是监听底部元素 当底部元素可见时 插入新的内容到底部元素前
+  </script>
+</html>

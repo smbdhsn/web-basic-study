@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 如果 Promise.all有一个异常了，其他Promise还会继续执行么？ -> 会的
+      const p1 = new Promise((resolve) => {
+        setTimeout(() => {
+          console.log(1);
+          resolve(1);
+        }, 1000);
+      });
+      const p2 = new Promise((resolve) => {
+        setTimeout(() => {
+          console.log(2);
+          resolve(2);
+        }, 2000);
+      });
+      const p3 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          console.log(3);
+          reject(3);
+        }, 3000);
+      });
+      const p4 = new Promise((resolve) => {
+        setTimeout(() => {
+          console.log(4);
+          resolve(4);
+        }, 4000);
+      });
+      Promise.all([p1, p2, p3, p4])
+        .then((res) => {
+          console.log("res", res);
+        })
+        .catch((rea) => {
+          console.log("catch err", rea);
+        });
+      // 1 2 3 catch err 4
+    </script>
+  </body>
+</html>

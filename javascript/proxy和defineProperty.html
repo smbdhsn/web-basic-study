@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+        Object.defineProperty(obj, prop, descriptor)
+      */
+
+      const obj = Object.create(null);
+      Object.defineProperty(obj, "a", {
+        value: "a",
+        enumerable: true,
+        configurable: false,
+        writable: false,
+      });
+      Object.defineProperty(obj, "b", {
+        value: "b",
+        enumerable: false,
+        configurable: false,
+        writable: true,
+      });
+      console.log(obj);
+      obj.a = "aa"; // 严格模式下报错
+      console.log(obj);
+
+      console.log("keys", Object.keys(obj));
+
+      Object.defineProperty(obj, "c", {
+        value: "c",
+        enumerable: false,
+        configurable: false,
+        writable: true,
+        // get() { 报错 不能同时设置
+        //   return "cc";
+        // },
+      });
+
+      console.log("------------------");
+
+      {
+        let o = {};
+        Object.defineProperty(o, "a", { value: 1, enumerable: true });
+        Object.defineProperty(o, "b", { value: 2, enumerable: false });
+        Object.defineProperty(o, "c", { value: 3 }); // enumerable 默认为 false
+        o.d = 4; // 如果使用直接赋值的方式创建对象的属性，则 enumerable 为 true
+        Object.defineProperty(o, Symbol.for("e"), {
+          value: 5,
+          enumerable: true,
+        });
+        Object.defineProperty(o, Symbol.for("f"), {
+          value: 6,
+          enumerable: false,
+        });
+
+        for (var i in o) {
+          console.log(i);
+        }
+        // logs 'a' and 'd' (in undefined order)
+
+        console.log("keys", Object.keys(o)); // ['a', 'd']
+
+        let p = { ...o };
+        p.a; // 1
+        p.b; // undefined
+        p.c; // undefined
+        p.d; // 4
+        p[Symbol.for("e")]; // 5
+        p[Symbol.for("f")]; // undefined
+      }
+
+      {
+        // 继承属性
+        function testFn() {}
+
+        let value;
+        Object.defineProperty(testFn.prototype, "x", {
+          get() {
+            console.log("调用了get");
+            return value;
+          },
+          set(x) {
+            console.log("调用了set");
+            value = x;
+          },
+        });
+
+        let a = new testFn();
+        let b = new testFn();
+        a.x = 1;
+        console.log(b);
+      }
+
+      // Proxy 对象用于创建一个对象的代理，从而实现基本操作的拦截和自定义（如属性查找、赋值、枚举、函数调用等）
+    </script>
+  </body>
+</html>
