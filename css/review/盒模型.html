@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    盒模型的组成部分
+    盒模型由四个部分从内到外依次组成：
+
+    内容区域 (Content) - 显示元素实际内容的区域
+    内边距 (Padding) - 内容与边框之间的空间
+    边框 (Border) - 围绕内容和内边距的线条
+    外边距 (Margin) - 元素与其他元素之间的空间
+
+
+    1. 标准盒模型 (Content-Box)
+    box-sizing: content-box; /* 默认值 */
+    在标准盒模型中：
+
+    元素宽度 = width + padding + border
+    元素高度 = height + padding + border
+    这意味着当你设置 width: 100px 时，实际上只是设置了内容区域的宽度，元素的总宽度还要加上内边距和边框。
+
+    2. 替代盒模型 (Border-Box)
+    box-sizing: border-box;
+    在替代盒模型中：
+
+    元素宽度 = width (width 已包含 content + padding + border)
+    元素高度 = height (height 已包含 content + padding + border)
+    这意味着当你设置 width: 100px 时，元素的总宽度就是 100px，内容区域的实际宽度会根据内边距和边框自动调整
+</body>
+</html>

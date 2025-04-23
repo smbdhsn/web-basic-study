@@ -38,4 +38,9 @@ Promise.resolve()
   .then(() => console.log(2))
   .then(() => console.log(3));
 
-// 同步测试 thenable 2 1 3
+  // 同步测试
+  // thenable1
+  // thenable2
+  // 2
+  // 1
+  // 3

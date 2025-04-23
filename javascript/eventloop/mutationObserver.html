@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+        <div class="left"></div>
+        <div class="right"></div>
+    </div>
+    <script>
+        // childList 只针对子元素的增加或删除 subtree则是监听所有后代节点
+        // attributes 则是针对自身的属性
+        // characterData 则是针对文本的变化
+        const observer = new MutationObserver((mutationList) => {
+            console.log('mutationList', mutationList);
+        });
+        const container = document.getElementById('container');
+        observer.observe(container, { childList: true, attributes: true, attributeOldValue: true, subtree: true, characterData: true });
+
+        const footer = document.createElement('div');
+        footer.className = 'footer';
+        container.appendChild(footer);
+
+        const left = document.querySelector('.left');
+        const leftChild = document.createElement('div');
+        leftChild.className = 'left-child';
+        left.appendChild(leftChild);
+
+        container.setAttribute('data-test', 'test1');
+        container.setAttribute('data-test', 'test2');
+        left.setAttribute('data-parent', '#container');
+
+        const textNode = document.createTextNode('hello');
+        left.appendChild(textNode);
+        textNode.data = 'hello world';
+
+        
+    </script>
+</body>
+</html>

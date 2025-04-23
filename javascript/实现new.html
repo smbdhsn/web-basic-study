@@ -22,9 +22,13 @@
       console.dir(p);
 
       function mockNew() {
+        // 获取构造函数和类型入参
         const constructor = Array.prototype.shift.call(arguments);
+        // 创建初始对象 继承原型
         const obj = Object.create(constructor.prototype);
+        // 将对象传入构造函数 绑定this
         const r = constructor.apply(obj, arguments);
+        // 如果构造函数返回对象 则返回对象 否则返回初始对象
         return typeof r === "object" ? r : obj;
       }
     </script>

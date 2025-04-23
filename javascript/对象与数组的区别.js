@@ -23,6 +23,7 @@ const obj = {
 };
 
 // 两次赋值是同一个键
+// 对象的key仅限于字符串 Symbol 其余类型会转为字符串
 obj[100] = 100;
 obj["100"] = 102;
 
@@ -48,7 +49,7 @@ for (let key in obj) {
   console.log(key, typeof key, obj[key]);
 }
 
-console.log("--------------------------");
+console.log("--------------------------1");
 
 for (let key of Object.keys(obj)) {
   // 首先打印数字键 再打印字符键 类型都是string类型
@@ -56,21 +57,21 @@ for (let key of Object.keys(obj)) {
   console.log(key, typeof key, obj[key]);
 }
 
-console.log("--------------------------");
+console.log("--------------------------2");
 
 // 可以打印被隐藏的key 不会打印原型链上的属性
 for (let key of Reflect.ownKeys(obj)) {
   console.log(key, typeof key, obj[key]);
 }
 
-console.log("--------------------------");
+console.log("--------------------------3");
 
 // 与Object.keys() 表现一致 原型链上的属性也不会打印，私有属性也不会打印
 for (let [key, value] of Object.entries(obj)) {
   console.log(key, value);
 }
 
-console.log("--------------------------");
+console.log("--------------------------4");
 
 const arr = [1, 2, 3, 4, 5];
 
@@ -89,14 +90,14 @@ for (let key of Object.keys(arr)) {
   console.log(key, arr[key]);
 }
 
-console.log("--------------------------");
+console.log("--------------------------5");
 
 // 打印公开属性和原型链上的属性
 for (let key in arr) {
   console.log(key);
 }
 
-console.log("--------------------------");
+console.log("--------------------------6");
 
 // 对象通过实现迭代器属性去实现for of遍历
 const iteratorObj = {
@@ -127,4 +128,13 @@ for (let item of iteratorObj) {
   console.log(item);
 }
 
-console.log("--------------------------");
+console.log("--------------------------7");
+
+const testArr = [1,2,3,4,5];
+testArr['str'] = 'str';
+console.log(Object.keys(testArr))
+console.log(testArr.pop())
+console.log(Object.keys(testArr))
+for(let item of testArr) {
+  console.log('item', item)
+}

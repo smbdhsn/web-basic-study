@@ -24,14 +24,17 @@
         "https://www.kkkk1000.com/images/getImgData/arithmetic.gif",
         "https://www.kkkk1000.com/images/wxQrCode2.png",
       ];
-      function loadImg(url) {
+      const loadErrorImages = [];
+      function loadImg(url, index) {
         return new Promise((resolve, reject) => {
           const img = new Image();
           img.onload = function () {
             console.log("一张图片加载完成");
-            resolve();
+            resolve({ success: true, index, url });
           };
-          img.onerror = reject;
+          img.onerror = () => {
+            resolve({ success: false, index, url })
+          };
           img.src = url;
         });
       }
@@ -44,9 +47,7 @@
         //并发请求到最大数
         promises = sequence.splice(0, limit).map((url, index) => {
           // 这里返回的 index 是任务在 promises 的脚标，用于在 Promise.race 之后找到完成的任务脚标
-          return handler(url).then(() => {
-            return index;
-          });
+          return handler(url)
         });
 
         // 利用数组的 reduce 方法来以队列的形式执行
@@ -58,25 +59,39 @@
                 return Promise.race(promises);
               })
               .catch((err) => {
+                debugger;
                 // 这里的 catch 不仅用来捕获 前面 then 方法抛出的错误
                 // 更重要的是防止中断整个链式调用
                 console.error(err);
               })
               .then((res) => {
+                const { success, url, index  } = res;
+                if(!success) {
+                  loadErrorImages.push(url)
+                }
                 // 用新的 Promise 替换掉最快改变状态的 Promise
-                promises[res] = handler(sequence[currentIndex]).then(() => {
-                  return res;
-                });
+                promises[index] = handler(sequence[currentIndex])
               });
           }, Promise.resolve())
           .then(() => {
-            return Promise.all(promises);
+            return Promise.allSettled(promises);
+          }).then((result) => {
+            for(let { status, value } of result) {
+              if(!value.success) {
+                loadErrorImages.push(value.url)
+              }
+            }
+            return loadErrorImages
           });
       }
-      limitLoad(urls, loadImg, 3);
+      limitLoad(urls, loadImg, 3).then(errors => {
+        console.log('errors', errors);
+      });
 
       /*
         因为 limitLoad 函数也返回一个 Promise，所以当 所有图片加载完成后，可以继续链式调用
+        主要流程是
+        Promise.race() 等待某个请求完成 根据完成索引替换为新的请求 继续执行Promise.race() 再替换为新的请求 没有多余请求后 执行Promise.all
 
         limitLoad(urls, loadImg, 3).then(() => {
             console.log('所有图片加载完成');

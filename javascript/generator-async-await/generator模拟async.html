@@ -33,7 +33,7 @@
         const c = yield createPromise();
         return [a, b, c];
       }
-
+      
       function spawn(genF) {
         return new Promise(function (resolve, reject) {
           const gen = genF();

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>水平居中</title>
+    <style>
+        .parent {
+            width: 300px;
+            height: 300px;
+            border: 1px solid orange;
+            .child {
+                width: 100px;
+                height: 100px;
+                border: 1px solid orange;
+            }
+        }
+
+        .m1 {
+            text-align: center; /*子元素必须是行内块元素或者行内元素 */
+            .m1-child {
+                display: inline-block;  
+            }
+        }
+
+        .m2 {
+            .m2-child {
+                margin: 0 auto;
+            }
+        }
+
+        .m3 {
+            display: flex;
+            justify-content: center;
+        }
+
+        .m4 {
+            .m4-child {
+                margin-left: calc(50% - 50px); /* 50% 父容器宽度 */
+            }
+        }
+
+        .m5 {
+            position: relative;
+            .m5-child {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="parent m1">
+        <div class="child m1-child"></div>
+    </div>
+    <hr />
+    <div class="parent m2">
+        <div class="child m2-child"></div>
+    </div>
+    <hr />
+    <div class="parent m3">
+        <div class="child"></div>
+    </div>
+    <hr>
+    <h3> margin + calc </h3>
+    <div class="parent m4">
+        <div class="child m4-child"></div>
+    </div>
+    <hr>
+    <h3>绝对定位 + transform</h3>
+    <div class="parent m5">
+        <div class="child m5-child"></div>
+    </div>
+</body>
+</html>

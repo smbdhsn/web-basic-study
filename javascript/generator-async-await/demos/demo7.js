@@ -68,9 +68,9 @@
 
 // 最终结果👉: 1 3 4 2 5 6 7
 
-async function tt() {
-  return Promise.resolve(123)
-}
+// async function tt() {
+//   return Promise.resolve(123)
+// }
 // demo5
 async function test() {
   console.log(1);

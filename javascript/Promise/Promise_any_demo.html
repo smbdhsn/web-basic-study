@@ -24,7 +24,10 @@
         })
         Promise.any([p1,p2,p3]).then(value => {
             console.log(value)
-        }, reason => console.log(reason)) 
+        }, reason => {
+            debugger;
+            console.log(reason);
+        }) 
         // reason 显示为  AggregateError: All promises were rejected
     </script>
 </body>

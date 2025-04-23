@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object.defineProperty</title>
+</head>
+<body>
+    <script>
+        // Object.defineProperty(obj, key, descriptor)
+        // descriptor: {
+        //     value: 1,
+        //     writable: true,
+        //     enumerable: true,
+        //     configurable: true
+        //     get() {}
+        //     set(newValue) {}
+        // }
+
+        /* ⚠️ 注意事项
+            defineProperty只能劫持对象类型 无法劫持数组length属性
+            defineProperty只针对单个属性 针对所有属性 需要遍历劫持
+            无法劫持新增的属性 所以需要事先知道劫持的propertyKey
+            Object.defineProperty不会触发原型链的查找
+        */
+        'use strict';
+
+        const obj = {
+            age: 22
+        };
+        Object.defineProperty(obj, 'name', {
+            get() {
+                return this._name
+            },
+            set(newValue) {
+                this._name = newValue
+            },
+            enumerable: false,
+            configurable: false,
+        });
+
+        obj.name = 'jack';
+
+        console.log('obj.name', obj.name);
+        console.log('obj', obj);
+        console.log('obj._name', obj._name);
+
+        try {
+            delete obj.name // configurable: false 无法删除属性
+        } catch(err) {
+            console.log('delete obj.name', err.message);
+        }
+       
+        console.log('obj keys', Object.keys(obj)); // ['_name', 'age']
+
+        // 尝试劫持数组
+        // Object.defineProperty(arr, 'length', {})  会报错 Cannot redefine property: length
+        // 数组可以劫持索引 但是无法监听数组的新增或删除 这是个问题 因为无法劫持length属性
+        const arr = [1,2,3,4,5];
+        const _arr = [1,2,3,4,5];
+
+        Object.defineProperty(arr, '0', {
+            get() {return _arr[0]},
+            set(val) { _arr['0'] = val }
+        })
+    </script>
+</body>
+</html>

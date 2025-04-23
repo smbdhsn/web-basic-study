@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>无限滚动示例 实现关键在于列表底部放一个loading加载区块 当区块展示在视口的时候 加载更多数据</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* 滚动容器样式 */
+        #scroll-container {
+            width: 100%;
+            max-width: 600px;
+            height: 500px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow-y: auto;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+
+        /* 内容项样式 */
+        .item {
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: white;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 加载指示器样式 */
+        #loading-indicator {
+            text-align: center;
+            padding: 15px;
+            font-style: italic;
+            color: #666;
+        }
+
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loading::after {
+            content: "";
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ccc;
+            border-top-color: #333;
+            border-radius: 50%;
+            margin-left: 10px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* 控制面板 */
+        .controls {
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>无限滚动示例</h1>
+    
+    <div class="controls">
+        <button id="reset-btn">重置内容</button>
+    </div>
+
+    <!-- 滚动容器 -->
+    <div id="scroll-container">
+        <!-- 内容将在这里动态生成 -->
+        <div id="content-container"></div>
+        
+        <!-- 加载指示器 -->
+        <div id="loading-indicator">
+            滚动加载更多...
+        </div>
+    </div>
+
+    <script>
+        // 配置参数
+        const config = {
+            initialItems: 10,      // 初始加载的项目数
+            batchSize: 5,          // 每次加载的新项目数
+            loadDelay: 800,        // 模拟加载延迟(毫秒)
+            maxItems: 100          // 最大项目数
+        };
+
+        // 状态变量
+        let itemCount = 0;         // 当前项目计数
+        let isLoading = false;     // 是否正在加载
+        let observer = null;       // IntersectionObserver 实例
+
+        // DOM 元素引用
+        const scrollContainer = document.getElementById('scroll-container');
+        const contentContainer = document.getElementById('content-container');
+        const loadingIndicator = document.getElementById('loading-indicator');
+        const resetButton = document.getElementById('reset-btn');
+
+        // 初始化函数
+        function init() {
+            // 加载初始内容
+            loadItems(config.initialItems);
+            
+            // 设置 Intersection Observer
+            setupIntersectionObserver();
+            
+            // 添加重置按钮事件监听
+            resetButton.addEventListener('click', resetContent);
+        }
+
+        // 设置 Intersection Observer
+        function setupIntersectionObserver() {
+            // 如果已存在观察者，先断开连接
+            if (observer) {
+                observer.disconnect();
+            }
+
+            // 创建新的观察者
+            observer = new IntersectionObserver((entries) => {
+                // 当加载指示器进入视口时
+                if (entries[0].isIntersecting && !isLoading) {
+                    loadMoreItems();
+                }
+            }, {
+                root: scrollContainer,     // 以滚动容器为根元素
+                threshold: 0.1             // 当10%的加载指示器可见时触发
+            });
+
+            // 开始观察加载指示器
+            observer.observe(loadingIndicator);
+        }
+
+        // 加载指定数量的项目
+        function loadItems(count) {
+            for (let i = 0; i < count; i++) {
+                if (itemCount >= config.maxItems) {
+                    showAllLoaded();
+                    break;
+                }
+                addItem();
+            }
+        }
+
+        // 加载更多项目
+        function loadMoreItems() {
+            if (isLoading || itemCount >= config.maxItems) return;
+            
+            // 设置加载状态
+            isLoading = true;
+            loadingIndicator.textContent = "加载中...";
+            loadingIndicator.classList.add('loading');
+            
+            // 模拟网络延迟
+            setTimeout(() => {
+                loadItems(config.batchSize);
+                
+                // 重置加载状态
+                isLoading = false;
+                loadingIndicator.classList.remove('loading');
+                
+                if (itemCount < config.maxItems) {
+                    loadingIndicator.textContent = "滚动加载更多...";
+                }
+            }, config.loadDelay);
+        }
+
+        // 添加单个项目
+        function addItem() {
+            itemCount++;
+            
+            const item = document.createElement('div');
+            item.className = 'item';
+            
+            // 创建随机内容
+            const contentLength = Math.floor(Math.random() * 2) + 1; // 1-2段落
+            let content = `<h3>项目 ${itemCount}</h3>`;
+            
+            for (let i = 0; i < contentLength; i++) {
+                const sentences = Math.floor(Math.random() * 3) + 1; // 1-3句话
+                let paragraph = '';
+                
+                for (let j = 0; j < sentences; j++) {
+                    const words = Math.floor(Math.random() * 15) + 5; // 5-20个词
+                    paragraph += `这是第${j+1}句示例文本，包含了一些随机的词语和内容。`.substring(0, words) + '。 ';
+                }
+                
+                content += `<p>${paragraph}</p>`;
+            }
+            
+            item.innerHTML = content;
+            contentContainer.appendChild(item);
+        }
+
+        // 显示已加载全部内容
+        function showAllLoaded() {
+            loadingIndicator.textContent = "已加载全部内容";
+            loadingIndicator.classList.remove('loading');
+            
+            if (observer) {
+                observer.disconnect();
+            }
+        }
+
+        // 重置内容
+        function resetContent() {
+            contentContainer.innerHTML = '';
+            itemCount = 0;
+            loadingIndicator.textContent = "滚动加载更多...";
+            loadingIndicator.classList.remove('loading');
+            
+            // 重新加载初始内容
+            loadItems(config.initialItems);
+            
+            // 重新设置观察者
+            setupIntersectionObserver();
+        }
+
+        // 初始化应用
+        init();
+    </script>
+</body>
+</html>

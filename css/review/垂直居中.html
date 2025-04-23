@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>几种常用的垂直居中方式</title>
+    <style>
+        .parent {
+            width: 300px;
+            height: 300px;
+            border: 1px solid orange;
+            .child {
+                width: 100px;
+                height: 100px;
+                border: 1px solid orange;
+            }
+        }
+
+        .m1 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .m2 {
+            position: relative;
+            .m2-child {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        .m3 {
+            position: relative;
+            .m3-child {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                margin-top: -50px;
+                margin-left: -50px;
+            }
+        }
+
+        .m4 {
+            position: relative;
+            .m4-child {
+                position: absolute;
+                top: calc(50% - 50px);
+                left: calc(50% - 50px);
+            }
+        }
+
+        .m5 {
+            position: relative;
+            .m5-child {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                margin: auto;
+            }
+        }
+
+        .m6 {
+            padding: 40px;
+            .m6-child {
+                height: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h3>flex</h3>
+    <div class="parent m1">
+        <div class="child"></div>
+    </div>
+    <hr/>
+    <h3>绝对定位 + transform</h3>
+    <div class="parent m2">
+        <div class="child m2-child"></div>
+    </div>
+    <hr />
+    <h3>绝对定位 + 负 margin 在子元素宽高清楚的情况下</h3>
+    <div class="parent m3">
+        <div class="child m3-child"></div>
+    </div>
+    <hr />
+    <h3>绝对定位 + calc() 在子元素宽高清楚的情况下</h3>
+    <div class="parent m4">
+        <div class="child m4-child"></div>
+    </div>
+    <hr />
+    <h3>绝对定位 + 四向为零 + margin: auto 在子元素宽高清楚的情况下</h3>
+    <div class="parent m5">
+        <div class="child m5-child"></div>
+    </div>
+    <span>
+        普通文档流中的块级元素：
+        当只设置 margin: auto 时，仅水平方向的 margin 会自动分配剩余空间，实现水平居中
+        垂直方向的 margin 不会自动分配剩余空间，因此不会垂直居中
+        绝对定位元素：
+        当同时设置了对立方向的位置属性（如 top 和 bottom、left 和 right）时，这些值定义了元素的"拉伸约束"
+        如果元素有明确的尺寸（宽度/高度），则会产生"过度约束"的情况
+        在过度约束的情况下，如果 margin 为 auto，浏览器会自动分配剩余空间给 margin，以满足所有约束条件
+        简单来说，当您设置：
+
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        您实际上是告诉浏览器："这个元素应该距离容器的上、右、下、左边缘都是0"。但同时您又给了元素固定的宽高，这就造成了一个矛盾 - 元素不可能同时满足这些约束。
+
+        这时，margin: auto 会解决这个矛盾，浏览器会自动计算并分配上下左右的外边距，使元素在两个方向上都居中。
+    </span>
+    <hr />
+    <h3>padding 居中</h3>
+    <div class="parent m6">
+        <div class="child m6-child"></div>
+    </div>
+</body>
+</html>

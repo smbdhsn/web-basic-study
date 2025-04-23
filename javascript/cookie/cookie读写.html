@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie的读写</title>
+</head>
+<body>
+    <script>
+        // 相关工具库 js-cookie
+
+        /**
+         * cookie的一些属性
+         * name 键
+         * value 值
+         * domain 域名
+         * path 路径
+         * expires
+         * max-age
+         * size
+         * httpOnly
+         * secure
+         * samesite
+         */
+        class CookieUtil {
+            /**
+             * 设置cookie
+             * @param {string} name cookie名称
+             * @param {string} value cookie值
+             * @param {object} options 选项
+             * @returns {string} cookie字符串
+             */
+            static set(name, value, options = {}) {
+                // 基础cookie字符串
+                let cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}`;
+
+                // 处理Max-Age （优先于expires）
+                if(options.maxAge !== undefined) {
+                    cookie += `; max-age=${options.maxAge}`;
+                
+                } 
+                // 处理过期时间 (仅在未设置 maxAge 时使用)
+                else if(options.expires) {
+                    if(typeof options.expires === 'number') {
+                        // 数字 认为是天数 手动处理
+                        const days = options.expires;
+                        const date = new Date();
+                        date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+                        cookie += `; expires=${date.toUTCString()}`;
+                    } else if(options.expires instanceof Date){
+                        cookie += `; expires=${options.expires.toUTCString()}`
+                    }
+                }
+                // 添加路径
+                if(options.path) {
+                    cookie += `; path=${options.path}`;
+                } else {
+                    cookie += `; path=/`;
+                }
+                // 添加域名
+                if(options.domain) {
+                    cookie += `; domain=${options.domain}`;
+                }
+                // 添加安全标志
+                if(options.secure === true) {
+                    cookie += `; secure`;
+                } 
+                // 添加samesite
+                if(options.sameSite) {
+                    cookie += `; samesite=${options.sameSite}`;
+                }
+                // 设置cookie
+                document.cookie = cookie;
+                return cookie;
+            }
+
+            /**
+             * 获取指定名称的cookie
+             * @param {string} name cookie名称
+             * @returns {string|null} cookie值 不存在返回null
+             */
+            static get(name) {
+                const cookies = document.cookie.split('; ');
+                const encodedName = encodeURIComponent(name);
+
+                for(const cookie of cookies) {
+                    const [cookieName, cookieValue] = cookie.split('=');
+                    if(cookieName === encodedName) {
+                        return decodeURIComponent(cookieValue);
+                    }
+                }
+
+                return null
+            }
+
+            /**
+             * 删除指定的cookie
+             * @param {string} name cookie名称
+             * @returns {boolean} 是否删除成功
+             */
+            static remove(name, options = {}) {
+                // 通过设置过期时间为过去的时间来删除cookie
+                this.set(name, '', {
+                    ...options,
+                    expires: new Date(0)
+                });
+
+                return this.get(name) === null;
+            }
+
+            /**
+             * 检查cookie是否存在
+             * @param {string} name cookie名称
+             * @returns {boolean} 是否存在
+             */
+            static exists(name) {
+                return this.get(name) !== null;
+            }
+
+            /**
+             * 获取所有cookie作为对象
+             * @returns {object} 所有cookie的键值对对象
+             */
+            static getAll() {
+                const result = {};
+                const cookies = document.cookie.split('; ');
+                for(const cookie of cookies) {
+                    const [cookieName, cookieValue] = cookie.split('=');
+                    result[decodeURIComponent(cookieName)] = decodeURIComponent(cookieValue);
+                }
+                return result;
+            }
+        }
+    
+        window.CookieUtil = CookieUtil;
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /**
+         * sort改变原数组
+         * sort默认处理函数
+         * 将数组的元素都转为字符串 然后按照UTF-16编码大小排序 大的序列放后 升序排序
+         * 常见字符的 UTF-16 编码顺序
+            以下是一些常见字符类别的 UTF-16 编码顺序（从小到大）：
+
+            数字：0-9 (编码 48-57)
+            大写字母：A-Z (编码 65-90)
+            小写字母：a-z (编码 97-122)
+            这意味着在默认排序中：
+
+            数字字符排在字母前面
+            大写字母排在小写字母前面
+            特殊字符（如空格、标点符号）的排序取决于它们的具体 UTF-16 编码值
+
+            undefined好像会放在最后
+         * 
+         *  自定义排序 
+         *  sort((a,b) => {
+         *   返回负数 a前面
+         *   返回正树 b在前
+         *   返回0 不改变
+         * })
+         */
+    </script>
+</body>
+</html>

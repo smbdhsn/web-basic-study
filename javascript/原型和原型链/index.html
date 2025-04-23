@@ -23,7 +23,7 @@
 
       const p = new Person("me", 22);
 
-      p.count = 1;
+      p.count = 1; // Cannot assign to read only property 'count' of object '#<Person>'
 
       // Object.defineProperty 不会触发原型链的查找 可以直接赋值
       Object.defineProperty(p, "count", {

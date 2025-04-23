@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>两列布局</title>
+    <style>
+        .container {
+            height: 400px;
+            .left {
+                width: 300px;
+                border: 1px solid orange;
+                height: 100%;
+            }
+            .right {
+                height: 100%;
+                border: 1px solid brown;
+            }
+        }
+
+        /* 定宽 */
+        .m1 {
+            position: relative;
+            .m1-left {
+                position: absolute;
+            }
+            .m1-right {
+                margin-left: -300px;
+            }
+        }
+
+        /* flex */
+        .m2 {
+            display: flex;
+            .m2-left {
+                flex: 0 0 300px;
+            }
+            .m2-right {
+                flex: 1
+            }
+        }
+
+        /* grid */
+        .m3 {
+            display: grid;
+            grid-template-columns: 300px auto;
+        }
+    </style>
+</head>
+<body>
+    <h3>实现方式1</h3>
+    <div class="container m1">
+        <div class="left m1-left"></div>
+        <div class="right m1-right"></div>
+    </div>
+    <hr>
+    <h3>实现方式2</h3>
+    <div class="container m2">
+        <div class="left m2-left"></div>
+        <div class="right m2-right"></div>
+    </div>
+    <h3>实现方式3</h3>
+    <div class="container m3">
+        <div class="left m3-left"></div>
+        <div class="right m3-right"></div>
+    </div>
+</body>
+</html>

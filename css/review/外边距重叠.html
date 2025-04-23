@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        外边距重叠的基本规则
+        外边距重叠只发生在垂直方向（top 和 bottom margins）的块级元素之间.水平方向的外边距（left 和 right margins）不会发生重叠。
+        
+        外边距重叠的计算规则
+        当外边距重叠时，最终的外边距大小遵循以下规则：
+
+        如果所有参与重叠的外边距都是正值，则取其中的最大值
+        如果参与重叠的外边距中有负值，则取最大的正外边距与最小的负外边距（绝对值最大的负外边距）的和
+        如果所有参与重叠的外边距都是负值，则取其中的最小值（绝对值最大的值）
+
+        解决：
+        添加padding(解决父子margin重叠)
+        添加border
+        display: inline-block 
+
+        /* 以下任一属性都可以创建 BFC */
+        overflow: hidden;（父子）
+        display: flow-root; /* 现代浏览器的最佳选择 */
+        display: flex;（父子）
+        display: grid;（父子）
+        float: left; /* 或 right */
+        position: absolute;
+        position: fixed;
+    </title>
+    <style>
+        .container {
+            width: 300px;
+            height: 300px;
+            border: 1px solid orange;
+            .c1 {
+                width: 50px;
+                height: 50px;
+                border: 1px solid orange;
+                margin-bottom: 50px;
+            }
+            .c2 {
+                width: 50px;
+                height: 50px;
+                border: 1px solid orange;
+                margin-top: 30px;
+            }
+        }
+
+        .container2 {
+            width: 300px;
+            height: 300px;
+            margin-top: 50px; /* 父容器没有border,padding,文字 才会发生 解决：添加border，padding，父容器设置bfc*/
+            .container2-child {
+                margin-top: 30px;
+                width: 100px;
+                height: 100px;
+                border: 1px solid red;
+            }
+        }
+
+        .empty {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h3>相邻元素之间的外边距重叠</h3>
+    <div class="container">
+        <div class="c1"></div>
+        <div class="c2"></div>
+    </div>
+    <hr>
+    <h3>父元素与第一个/最后一个子元素之间的外边距重叠</h3>
+    <div class="container2">
+        <div class="container2-child">123</div>
+    </div>
+    <hr>
+    <h3>空元素自身的外边距重叠</h3>
+    <div class="empty"></div>
+</body>
+</html>

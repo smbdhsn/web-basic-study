@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>getBoundingClientRect</title>
+    <title>getBoundingClientRect 每次执行会触发浏览器重排 所以这是备用方案</title>
     <style>
       #container {
         width: 300px;
@@ -25,6 +25,7 @@
       const box = document.getElementById("box");
       function checkInView(dom) {
         const { left, top, bottom, right } = dom.getBoundingClientRect();
+        console.log('left', left, 'top', top, 'bottom', bottom, 'right', right);
         return (
           left > 0 &&
           top > 0 &&

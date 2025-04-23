@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mutationObserver的回调函数</title>
+</head>
+<body>
+    <script>
+        const observer = new MutationObserver((mutationList) => {
+            console.log('start observer');
+        });
+        const textNode = document.createTextNode('');
+        observer.observe(textNode, { characterData: true });
+
+        textNode.data = 'hello';
+        
+        Promise.resolve().then(() => {
+            console.log('promise then')
+        });
+
+        // 看起来 两者微任务的优先级是相相同的
+        // start observer
+        // promise then
+    </script>
+</body>
+</html>
