@@ -15,11 +15,16 @@
       console.log(a); // undefined
       var a = 10;
 
-      let c = (d = 2);
-      console.log(window.d); // 2
+      let c = d = 2;
+      console.log('window.d', window.d); // 2
+
+      let e = 3, f = 3;
+      console.log('window.f', window.f); // undefinde
 
       console.log(b); // Uncaught ReferenceError: Cannot access 'b' before initialization
       let b = 20;
+
+
     </script>
   </body>
 </html>

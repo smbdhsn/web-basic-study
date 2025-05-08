@@ -8,6 +8,20 @@
   </head>
   <body>
     <script>
+
+      // 1. 键的类型不同
+      // Map：键可以是任意类型（对象、基本类型都可以）。
+      // WeakMap：键只能是对象（且不能是 null），不能用基本类型（如字符串、数字）作为键。
+      // 2. 垃圾回收机制不同
+      // Map：对键和值都是强引用。只要 Map 存在，键和值就不会被垃圾回收。
+      // WeakMap：对“键”是弱引用。如果没有其他变量引用这个键对象，键值对会被自动垃圾回收（值也会一起被回收）。
+      // 3. 可枚举性不同
+      // Map：可以使用 forEach、for...of、keys()、values()、entries() 等方法遍历所有键值对。
+      // WeakMap：不可遍历，没有 size 属性，也没有 keys/values/entries/forEach 等方法。只能通过 set/get/has/delete 操作。
+      // 4. 应用场景不同
+      // Map：适合需要频繁遍历、统计、管理各种类型键值对的场景。
+      // WeakMap：适合给对象“打补丁”或做私有数据存储，不影响对象的垃圾回收，常用于实现对象的“弱关联”。
+
       const map = new Map();
       // set get delete clear has
       // map.set("a", "a");

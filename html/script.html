@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script defer async></script>
+</head>
+<body>
+    <script>
+        /**
+         * script defer async属性
+         * 
+         * 共同点：
+         * defer async属性只对外部脚本有效 都是并行异步下载的 都不会阻塞html的解析
+         * 不同点：
+         * defer脚本的执行发生在文档被解析后，但在触发 DOMContentLoaded 事件之前执行的。(在dom树和cssom树构建完成后触发) 只有脚本都加载完毕后才会依次执行 具有顺序性
+         * async脚本下载完成后立即执行 没有特定的执行时机
+         * 如果脚本之间有依赖关系,使用defer。 如果脚本是独立的,不依赖于其他脚本或DOM结构,可以使用async。
+         * 
+         * DOMContentLoaded事件
+         * load事件
+         * DOMContentLoaded事件：dom树和cssom树构建完成后触发
+         * load事件: 在页面所有资源(包括 DOM、CSS、图片、脚本等)都加载完成后触发
+         */
+    </script>
+</body>
+</html>

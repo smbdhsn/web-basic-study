@@ -21,9 +21,10 @@
       //   testFn.bind({ key: "bind" }).call({ key: "call" }, "t2", 33);
 
       Function.prototype.mockCall = function () {
-        const context = arguments[0];
+        let context = arguments[0];
         const args = Array.from(arguments).slice(1);
         const fn = this;
+        context = (context === null || context === undefined) ? window : Object(context);
         context[Symbol.for("call")] = fn;
         const result = context[Symbol.for("call")](...args);
         delete context[Symbol.for("call")];
@@ -33,9 +34,10 @@
       testFn.mockCall({ key: "mockCall" }, "call", 22);
 
       Function.prototype.mockApply = function () {
-        const context = arguments[0];
+        let context = arguments[0];
         const args = arguments[1];
         const fn = this;
+        context = (context === null || context === undefined) ? window : Object(context);
         context[Symbol.for("apply")] = fn;
         const result = context[Symbol.for("apply")](...args);
         delete context[Symbol.for("apply")];

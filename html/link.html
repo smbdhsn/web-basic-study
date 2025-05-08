@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>preload prefetch preconnect</title>
+    <link rel="">
+</head>
+<body>
+    <script>
+        /**
+         * 
+         * 
+         * <link rel="preload">
+         * 高优先级。浏览器会立即开始加载资源,用于当前页面需要的资源 用于加载当前页面必需的关键资源(css,js,字体文件) 浏览器必须预加载这些资源 加载的资源通常不会被缓存很长时间
+         * 
+         * 
+         * <link rel="prefetch">
+         * 低优先级。浏览器会在空闲时才开始加载资源 用于预加载将来可能需要的资源，如下一个页面的资源 浏览器可以选择忽略这个提示 加载的资源通常会被缓存较长时间，以备将来使用
+         * 一般用于预加载可能跳转到的下一个页面的资源
+         * 
+         * <link rel="preconnect">
+         * 
+         *   方法 1：配合常规 link 标签
+         *       <link rel="preload" href="styles.css" as="style">
+         *       <link rel="stylesheet" href="styles.css">
+         *   方法 2：使用 JavaScript 动态应用
+         *       <link rel="preload" href="styles.css" as="style" onload="this.rel='stylesheet'">
+         *       JavaScript 文件
+         *   方法 1：使用 script 标签
+         *       <link rel="preload" href="script.js" as="script">
+         *       <script src="script.js" />
+         * 
+         * <link crossorigin="anonymous | use-credentials">
+         * 设置跨域加载资源的策略 可以打印js资源的完整报错 行号列号等
+         * 只要设置了crossorigin就算开启了cors策略 需要服务器支持响应头 否则浏览器不会利用资源
+         * use-credentials: 允许跨域请求携带cookie http身份信息
+         * anonymous: 不携带身份信息
+         */
+    </script>
+</body>
+</html>

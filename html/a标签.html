@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 500px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <!-- a标签的download属性 跨域无法下载 暂时不行-->
+    <a href="https://pic.netbian.com/uploads/allimg/240528/213609-17169033698cd1.jpg" target="_blank" download="1.jpg">下载图片</a>
+    <a href="https://sourceforge.net/p/sevenzip/discussion/45797/thread/f162d68dcd/" target="_blank" download="1.jpg">下载zip</a>
+    <!-- opener属性 跨域不能通过window.opener.document获取当前页面的document-->
+    <!-- referrer属性 demo.html通过document.referrer访问-->
+    <a href="./demo.html" target="_blank" rel="opener referrer" id="gotodemopage">跳转demo页面</a>
+    <div class="box" id="top"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <a href="#top">返回顶部</a>
+    <a href="./demo.html" target="_preview">跳转demo页面</a>
+
+    <script>
+        // 处理相对路径为绝对路径 两种方式
+        // const target = new URL('./demo.html', 'https://abc.com/').href;
+        // console.log('target', target); // https://abc.com/demo.html
+        // // 通过base标签设置baseUrl
+        // const base = document.createElement('base');
+        // base.href = 'https://abc.com/';
+        // document.head.appendChild(base);
+        // const aLink = document.createElement('a');
+        // aLink.href = './demo.html';
+        // console.log('target2', aLink.href); // https://abc.com/demo.html
+        // 锚点
+
+        /**
+         * 总结几个属性
+         * href 属性用法： 跳转外链 回到顶部 将相对路径转为绝对路径
+         * download 属性用法： 下载 需要同源
+         * target 属性用法：如果随意设置 那么打开外链都是同一个tab
+         * rel 属性用法：opener 需要同源 
+         * rel 属性用法：referrer 不需要同源 多种策略
+        **/
+    </script>
+</body>
+</html>

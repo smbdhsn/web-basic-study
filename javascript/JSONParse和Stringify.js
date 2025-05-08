@@ -88,8 +88,8 @@ const user = {
     // 使用space参数美化输出
     const data = {
         users: [
-        { id: 1, name: "John" },
-        { id: 2, name: "Jane" }
+          { id: 1, name: "John" },
+          { id: 2, name: "Jane" }
         ],
         active: true,
         lastUpdated: "2023-01-01"
@@ -122,7 +122,7 @@ const user = {
   }
   
   {
-     // 处理特殊类型和值
+    // 处理特殊类型和值
     const specialData = {
         normalValue: 42,
         functionValue: function() { return 'hello'; },
@@ -177,25 +177,25 @@ const user = {
     circular.self = circular;
 
     try {
-    JSON.stringify(circular);
+      JSON.stringify(circular);
     } catch (error) {
-    console.error("循环引用错误:", error.message);
+      console.error("循环引用错误:", error.message);
     // TypeError: Converting circular structure to JSON
     }
 
     // 解决方案：使用 replacer 函数检测循环引用
     function safeStringify(obj) {
-    const seen = new WeakSet();
-    return JSON.stringify(obj, (key, value) => {
-        // 最先执行的是 key=undefined value=circular本身
-        if (typeof value === 'object' && value !== null) {
-        if (seen.has(value)) {
-            return '[Circular Reference]';
-        }
-        seen.add(value);
-        }
-        return value;
-    });
+      const seen = new WeakSet();
+      return JSON.stringify(obj, (key, value) => {
+          // 最先执行的是 key=undefined value=circular本身
+          if (typeof value === 'object' && value !== null) {
+            if (seen.has(value)) {
+                return '[Circular Reference]';
+            }
+            seen.add(value);
+          }
+          return value;
+      });
     }
 
     console.log(safeStringify(circular));

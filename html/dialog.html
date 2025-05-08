@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dialog与popover</title>
+</head>
+<body>
+    <dialog id="dialog">
+        <p>欢迎使用dialog标签</p>
+    </dialog>
+    <button id="showDialog">展示</button>
+    <script>
+        const btn = document.querySelector('#showDialog');
+        btn.addEventListener('click', () =>{ 
+            const dialogEle = document.querySelector('#dialog');
+            // dialogEle.open = true;
+            dialogEle.showModal();
+        })
+    </script>
+</body>
+</html>

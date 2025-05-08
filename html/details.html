@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #list summary::marker{
+            color: orange;
+        }
+        #box {
+            width: fit-content;
+            direction: rtl;
+        }
+        #emoji summary{
+            list-style-type: none;
+        }
+        #emoji summary::before {
+            content: "😀";
+        }
+        #emoji[open] summary::before {
+            content: "😎";
+        }
+    </style>
+</head>
+<body>
+    <!-- details open属性控制展示或隐藏 -->
+    <!-- summary 可以不写 浏览器会自动创建 但是浏览器会创建shadow dom -->
+    <details id="list">
+        <summary>查看详情</summary>
+        <p>
+            这里是一段测试文本
+            这里是一段测试文本
+            这里是一段测试文本
+            这里是一段测试文本
+        </p>
+    </details>
+
+    <hr />
+
+    <details id="box">
+        <summary>查看详情</summary>
+        <p>
+            这里是一段测试文本
+            这里是一段测试文本
+            这里是一段测试文本
+            这里是一段测试文本
+        </p>
+    </details>
+
+    <hr>
+
+    <details id="emoji">
+        <summary>查看详情</summary>
+        <p>
+            这里是一段测试文本
+            这里是一段测试文本
+            这里是一段测试文本
+            这里是一段测试文本
+        </p>
+    </details>
+
+    <hr>
+
+    <!-- name相同 那么同时只会展开一个 该特性目前大部分浏览器只有较新版本支持 -->
+    <aside>
+        <details name="accordion">
+            <summary>查看详情</summary>
+            <p>
+                这里是一段测试文本
+                这里是一段测试文本
+                这里是一段测试文本
+                这里是一段测试文本
+            </p>
+        </details>
+        <details name="accordion">
+            <summary>查看详情</summary>
+            <p>
+                这里是一段测试文本
+                这里是一段测试文本
+                这里是一段测试文本
+                这里是一段测试文本
+            </p>
+        </details>
+        <details name="accordion">
+            <summary>查看详情</summary>
+            <p>
+                这里是一段测试文本
+                这里是一段测试文本
+                这里是一段测试文本
+                这里是一段测试文本
+            </p>
+        </details>
+    </aside>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>window Selection</p>
+    <div>
+        爱好
+        <ul>
+            <li>apple</li>
+            <li>banana</li>
+            <li>watermelon</li>
+        </ul>
+        <span>美国大选</span>
+        <span>地球是我们共同的家园</span>
+    </div>
+    <script>
+        document.addEventListener('mouseup', () => {
+        const selection = window.getSelection();
+        if (!selection.isCollapsed) {
+            const range = selection.getRangeAt(0);
+            console.log('Selected text:', selection.toString());
+            console.log('Anchor node:', selection.anchorNode);
+            console.log('Focus node:', selection.focusNode);
+            console.log('startContainer', range.startContainer);
+            console.log('endContainer', range.endContainer);
+            console.log('startOffset', range.startOffset);
+            console.log('endOffset', range.endOffset);
+        }
+        });
+    </script>
+</body>
+</html>

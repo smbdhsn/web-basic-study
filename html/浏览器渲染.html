@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root">123</div>
+    <script>
+        const root = document.querySelector('#root');
+        if(root) {
+            root.innerHTML = 'hello world';
+        }
+        debugger; // 有 debugger 时，浏览器会在暂停前主动渲染页面，方便你调试；正常情况下，DOM 变了不会立刻渲染，只有 script 执行完才统一渲染。
+        alert('stop'); // 这个就会暂停 显示渲染的先后顺序
+        for(let i = 0; i < 10; i++) {
+            console.log(i);
+        }
+    </script>
+</body>
+</html>
